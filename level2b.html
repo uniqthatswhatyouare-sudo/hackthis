@@ -1,0 +1,21 @@
+<h1>SECONDARY SYSTEM</h1>
+
+<p>Secondary encryption detected.</p>
+<p>ROT-7 required.</p>
+
+<p>Encrypted key: psveffvu</p>
+
+<input id="answer">
+<button onclick="check()">Submit</button>
+
+<script>
+function check() {
+  let input = document.getElementById("answer").value.toLowerCase();
+
+  if (input === "iloveyou") {
+    window.location.href = "level3.html";
+  } else {
+    alert("ACCESS DENIED");
+  }
+}
+</script>

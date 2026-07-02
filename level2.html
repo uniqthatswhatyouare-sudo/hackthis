@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Level 2</title>
+<title>Level 2 - Access Gate</title>
 
 <style>
 body {
@@ -9,13 +9,35 @@ body {
   background: black;
   color: #00ff00;
   font-family: monospace;
-  overflow: hidden;
 }
 
 #screen {
   padding: 40px;
   white-space: pre-line;
   font-size: 18px;
+}
+
+input {
+  background: black;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 10px;
+  font-family: monospace;
+  margin-top: 15px;
+}
+
+button {
+  margin-left: 10px;
+  background: black;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00ff00;
+  color: black;
 }
 
 .cursor {
@@ -35,10 +57,15 @@ body {
 
 <div id="screen"></div>
 
+<div style="padding:40px;">
+  <input id="code" placeholder="ENTER ACCESS KEY">
+  <button onclick="check()">AUTH</button>
+</div>
+
 <script>
 const screen = document.getElementById("screen");
 
-function typeText(text, delay = 25) {
+function typeText(text, delay = 20) {
   return new Promise(resolve => {
     let i = 0;
     let interval = setInterval(() => {
@@ -46,24 +73,39 @@ function typeText(text, delay = 25) {
       i++;
       if (i >= text.length) {
         clearInterval(interval);
-        screen.innerHTML += "\n\n";
+        screen.innerHTML += "\n";
         resolve();
       }
     }, delay);
   });
 }
 
-async function run() {
+async function start() {
   await typeText("TRANSMISSION RECEIVED...");
-  await typeText("CONNECTING TO SIGNAL...");
-  await typeText("SIGNAL STABLE.");
-  await typeText("\nDECODE THIS PAYLOAD:\n");
-
-  await typeText("R29vZC4gVGhlIG1lc3NhZ2UgaXMgaW5jb21wbGV0ZS4=");
-  await typeText("\nACCESS NEXT NODE WHEN READY → level2b.html");
+  await typeText("DECODING BASE SIGNAL...");
+  await typeText("\nDECODED MESSAGE:");
+  await typeText("Good. The message is incomplete.");
+  await typeText("Secondary system detected.");
+  await typeText("ACCESS KEY REQUIRED: 1001");
+  await typeText("\nAwaiting authentication...\n");
 }
 
-run();
+function check() {
+  let input = document.getElementById("code").value.trim();
+
+  if (input === "1001") {
+    screen.innerHTML += "\nAUTH SUCCESSFUL...\nACCESS GRANTED → NODE 2B";
+    
+    setTimeout(() => {
+      window.location.href = "level2b.html";
+    }, 1200);
+
+  } else {
+    screen.innerHTML += "\nAUTH FAILED";
+  }
+}
+
+start();
 </script>
 
 </body>

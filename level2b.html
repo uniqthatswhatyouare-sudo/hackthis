@@ -1,21 +1,110 @@
-<h1>SECONDARY SYSTEM</h1>
+<!DOCTYPE html>
+<html>
+<head>
+<title>Level 2B</title>
 
-<p>Secondary encryption detected.</p>
-<p>ROT-7 required.</p>
+<style>
+body {
+  margin: 0;
+  background: black;
+  color: #00ff00;
+  font-family: monospace;
+}
 
-<p>Encrypted key: psveffvu</p>
+#screen {
+  padding: 40px;
+  white-space: pre-line;
+  font-size: 18px;
+}
 
-<input id="answer">
-<button onclick="check()">Submit</button>
+input {
+  background: black;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 10px;
+  font-family: monospace;
+}
+
+button {
+  margin-left: 10px;
+  background: black;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00ff00;
+  color: black;
+}
+</style>
+</head>
+
+<body>
+
+<div id="screen"></div>
+
+<div style="padding:40px;">
+  <input id="answer" placeholder="ENTER KEY">
+  <button onclick="check()">SUBMIT</button>
+</div>
 
 <script>
+const screen = document.getElementById("screen");
+
+function delay(ms) {
+  return new Promise(res => setTimeout(res, ms));
+}
+
+async function run() {
+  screen.innerHTML = "";
+
+  await type("SECONDARY SYSTEM DETECTED...");
+  await delay(800);
+
+  await type("ANALYZING SIGNAL...");
+  await delay(800);
+
+  await type("ENCRYPTION TYPE: ROT SHIFT");
+  await delay(800);
+
+  await type("\nEncrypted key detected: psveffvu");
+  await delay(800);
+
+  await type("\nHint: ROT-7 REQUIRED");
+}
+
+function type(text) {
+  return new Promise(resolve => {
+    let i = 0;
+    let interval = setInterval(() => {
+      screen.innerHTML += text[i];
+      i++;
+      if (i >= text.length) {
+        clearInterval(interval);
+        screen.innerHTML += "\n";
+        resolve();
+      }
+    }, 20);
+  });
+}
+
 function check() {
   let input = document.getElementById("answer").value.toLowerCase();
 
   if (input === "iloveyou") {
-    window.location.href = "level3.html";
+    screen.innerHTML += "\nACCESS GRANTED → LEVEL COMPLETE";
+    setTimeout(() => {
+      window.location.href = "level3.html";
+    }, 1200);
   } else {
-    alert("ACCESS DENIED");
+    screen.innerHTML += "\nACCESS DENIED";
   }
 }
+
+run();
 </script>
+
+</body>
+</html>

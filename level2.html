@@ -13,23 +13,19 @@ body {
 
 #screen {
   padding: 40px;
-  white-space: pre-line;
   font-size: 18px;
+  white-space: pre-line;
 }
 
-button {
-  margin-top: 20px;
-  background: black;
-  border: 1px solid #00ff00;
-  color: #00ff00;
-  padding: 10px;
-  cursor: pointer;
-  font-family: monospace;
-}
-
-button:hover {
+.cursor {
+  display: inline-block;
+  width: 10px;
   background: #00ff00;
-  color: black;
+  animation: blink 0.7s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
 }
 
 input {
@@ -38,7 +34,21 @@ input {
   color: #00ff00;
   padding: 10px;
   font-family: monospace;
-  margin-top: 10px;
+  margin-top: 15px;
+}
+
+button {
+  margin-left: 10px;
+  background: black;
+  border: 1px solid #00ff00;
+  color: #00ff00;
+  padding: 10px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #00ff00;
+  color: black;
 }
 </style>
 </head>
@@ -48,52 +58,49 @@ input {
 <div id="screen"></div>
 
 <div style="padding:40px;">
-  <button onclick="decode()">DECODE SIGNAL</button>
-
-  <div id="authBox" style="display:none;">
-    <p>ENTER ACCESS KEY:</p>
-    <input id="code">
-    <button onclick="check()">ENTER</button>
-  </div>
+  <p>ENTER DECRYPTED KEY:</p>
+  <input id="code">
+  <button onclick="check()">SUBMIT</button>
 </div>
 
 <script>
 const screen = document.getElementById("screen");
 
-// STEP 1 — only base64 shown
-screen.innerHTML = `
-TRANSMISSION RECEIVED...
-SIGNAL LOCKED.
-
-PAYLOAD:
-R29vZC4gVGhlIG1lc3NhZ2UgaXMgaW5jb21wbGV0ZS4=
-`;
-
-function decode() {
-  // STEP 2 — reveal hint ONLY after interaction
-  screen.innerHTML += `
-
-DECODING SIGNAL...
-...
-
-DECODE COMPLETE.
-
-HINT:
-Good. The message is incomplete.
-Secondary encryption detected.
-`;
-
-  document.getElementById("authBox").style.display = "block";
+function type(text, delay = 30) {
+  return new Promise(resolve => {
+    let i = 0;
+    let interval = setInterval(() => {
+      screen.innerHTML += text[i];
+      i++;
+      if (i >= text.length) {
+        clearInterval(interval);
+        screen.innerHTML += "\n";
+        resolve();
+      }
+    }, delay);
+  });
 }
+
+async function start() {
+  await type("BOOTING SECURE CHANNEL...");
+  await type("ACCESSING SYSTEM NODE...");
+  await type("\n>>> CAN YOU DECODE THIS?");
+  await type("\nPAYLOAD:");
+  await type("MTAwMQ=="); // Base64 for "1001"
+}
+
+start();
 
 function check() {
   let input = document.getElementById("code").value.trim();
 
   if (input === "1001") {
-    screen.innerHTML += "\n\nAUTH SUCCESSFUL → ACCESS GRANTED";
+    screen.innerHTML += "\n\nACCESS GRANTED → LEVEL 3 UNLOCKED";
+
     setTimeout(() => {
-      window.location.href = "level2b.html";
+      window.location.href = "level3.html";
     }, 1200);
+
   } else {
     screen.innerHTML += "\n\nACCESS DENIED";
   }

@@ -13,38 +13,9 @@ body {
     font-size: 20px;
 }
 
-/* terminal container */
 #terminal {
     padding: 30px;
     white-space: pre-line;
-}
-
-/* blinking cursor */
-.cursor {
-    display: inline-block;
-    width: 10px;
-    background: #00ff66;
-    margin-left: 5px;
-    animation: blink 0.8s infinite;
-}
-
-@keyframes blink {
-    0% { opacity: 1; }
-    50% { opacity: 0; }
-    100% { opacity: 1; }
-}
-
-/* glitch flicker effect */
-@keyframes flicker {
-    0% { opacity: 1; }
-    2% { opacity: 0.8; }
-    4% { opacity: 1; }
-    50% { opacity: 0.95; }
-    100% { opacity: 1; }
-}
-
-body {
-    animation: flicker 3s infinite;
 }
 </style>
 
@@ -54,45 +25,6 @@ body {
 
 <div id="terminal"></div>
 
-<body>
-
-<div id="terminal"></div>
-
-<script>
-const terminal = document.getElementById("terminal");
-
-const lines = [
-"> Booting node 04...",
-"> Establishing secure connection...",
-"> Verifying system integrity...",
-"> WARNING: Display output incomplete.",
-"> Nothing here is visible.",
-"> But everything is present.",
-"> Awaiting hidden key..."
-];
-
-let i = 0;
-let charIndex = 0;
-
-function typeLine() {
-    if (i >= lines.length) return;
-
-    let line = lines[i];
-
-    if (charIndex < line.length) {
-        terminal.innerHTML += line.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeLine, 40);
-    } else {
-        terminal.innerHTML += "<br>";
-        i++;
-        charIndex = 0;
-        setTimeout(typeLine, 500);
-    }
-}
-
-typeLine();
-</script>
 <script>
 const terminal = document.getElementById("terminal");
 
@@ -133,34 +65,36 @@ function showInput() {
     terminal.innerHTML += "<br><br>";
 
     terminal.innerHTML += `
-    <input id="keyInput" placeholder="enter hidden key..." style="
-        background:black;
-        border:1px solid #00ff66;
-        color:#00ff66;
-        font-size:18px;
-        padding:10px;
-        font-family:monospace;
-    ">
-    <button onclick="checkKey()" style="
-        background:black;
-        border:1px solid #00ff66;
-        color:#00ff66;
-        padding:10px;
-        cursor:pointer;
-        font-family:monospace;
-    ">UNLOCK</button>
+        <input id="keyInput" placeholder="enter hidden key..." style="
+            background:black;
+            border:1px solid #00ff66;
+            color:#00ff66;
+            font-size:18px;
+            padding:10px;
+            font-family:monospace;
+        ">
 
-    <button onclick="diagnostics()" style="
-        background:black;
-        border:1px solid #00ff66;
-        color:#00ff66;
-        padding:10px;
-        cursor:pointer;
-        font-family:monospace;
-        margin-left:10px;
-    ">RUN DIAGNOSTICS</button>
+        <button onclick="checkKey()" style="
+            background:black;
+            border:1px solid #00ff66;
+            color:#00ff66;
+            padding:10px;
+            margin-left:10px;
+            cursor:pointer;
+            font-family:monospace;
+        ">UNLOCK</button>
 
-    <p id="result"></p>
+        <button onclick="diagnostics()" style="
+            background:black;
+            border:1px solid #00ff66;
+            color:#00ff66;
+            padding:10px;
+            margin-left:10px;
+            cursor:pointer;
+            font-family:monospace;
+        ">RUN DIAGNOSTICS</button>
+
+        <p id="result"></p>
     `;
 }
 
@@ -189,45 +123,8 @@ function diagnostics() {
         "> hehe it tickles!";
 }
 
-    
 typeLine();
-    function showInput() {
-    terminal.innerHTML += "<br><br>";
-
-    terminal.innerHTML += `
-        <input id="keyInput" placeholder="enter hidden key..." style="
-            background:black;
-            border:1px solid #00ff66;
-            color:#00ff66;
-            font-size:18px;
-            padding:10px;
-            font-family:monospace;
-        ">
-
-        <button onclick="checkKey()" style="
-            background:black;
-            border:1px solid #00ff66;
-            color:#00ff66;
-            padding:10px;
-            cursor:pointer;
-            font-family:monospace;
-            margin-left:10px;
-        ">UNLOCK</button>
-
-        <button onclick="diagnostics()" style="
-            background:black;
-            border:1px solid #00ff66;
-            color:#00ff66;
-            padding:10px;
-            cursor:pointer;
-            font-family:monospace;
-            margin-left:10px;
-        ">RUN DIAGNOSTICS</button>
-
-        <p id="result"></p>
-    `;
-}
 </script>
+
 </body>
 </html>
-

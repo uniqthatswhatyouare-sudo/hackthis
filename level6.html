@@ -1,0 +1,190 @@
+const terminal = document.getElementById("terminal");
+
+/* TYPE ENGINE */
+function typeLine(text, callback){
+    let i = 0;
+
+    function run(){
+        if(i < text.length){
+            terminal.innerHTML += text.charAt(i);
+            i++;
+            terminal.scrollTop = terminal.scrollHeight;
+            setTimeout(run,12);
+        } else {
+            terminal.innerHTML += "<br>";
+            if(callback) setTimeout(callback,300);
+        }
+    }
+
+    run();
+}
+
+/* BOOT */
+function startLevel6(){
+
+typeLine("> booting NODE_LEVEL_06...", () => {
+typeLine("> loading adaptive response engine...", () => {
+typeLine("> scanning operator signature...", () => {
+typeLine("> unknown operator detected...", () => {
+typeLine("> attempting identification...", () => {
+typeLine("> system ready.", showConsole);
+});
+});
+});
+});
+});
+
+}
+
+/* START SCREEN */
+function showConsole(){
+
+terminal.innerHTML += `
+<br>
+----------------------------------<br>
+LIVE SYSTEM ACTIVE<br>
+----------------------------------<br><br>
+
+<button onclick="scan()">SCAN IDENTITY</button>
+`;
+
+}
+
+/* STEP 1 */
+function scan(){
+
+typeLine("> scanning operator signature...", () => {
+typeLine("> profile match found.", () => {
+
+terminal.innerHTML += `
+<br>
+Identity accepted.<br>
+Confidence: 99.97%<br><br>
+
+<button onclick="trace()">TRACE MEMORY</button>
+`;
+
+});
+
+});
+
+}
+
+/* STEP 2 */
+function trace(){
+
+typeLine("> accessing memory database...", () => {
+typeLine("> reconstructing memory clusters...", () => {
+
+terminal.innerHTML += `
+<br>
+
+MEMORY CLUSTERS FOUND
+
+<br><br>
+
+[01] TRUST ✓<br>
+[02] DISTANCE ✓<br>
+[03] FUTURE ✓<br><br>
+
+<button onclick="confirm()">CONFIRM LINK</button>
+`;
+
+});
+
+});
+
+}
+
+/* STEP 3 */
+function confirm(){
+
+typeLine("> validating relationship graph...", () => {
+typeLine("> emotional resonance confirmed...", () => {
+typeLine("> initializing adaptive audio generation...", () => {
+
+terminal.innerHTML += `
+<br><br>
+Synthesizing...<br><br>
+
+[██░░░░░░░░] 20%<br>
+`;
+
+setTimeout(() => {
+terminal.innerHTML += `[█████░░░░░] 50%<br>`;
+}, 800);
+
+setTimeout(() => {
+terminal.innerHTML += `[████████░░] 80%<br>`;
+}, 1600);
+
+setTimeout(() => {
+terminal.innerHTML += `
+[██████████] 100%<br><br>
+
+FILE: whenwe.mp3<br>
+
+<button onclick="releaseSong()">RELEASE AUDIO</button>
+`;
+}, 2400);
+
+});
+
+});
+
+});
+
+}
+
+/* STEP 4 */
+function releaseSong(){
+
+const audio = document.getElementById("song");
+audio.play().catch(()=>{});
+
+const link = document.createElement("a");
+link.href = "whenwe.mp3";
+link.download = "whenwe.mp3";
+document.body.appendChild(link);
+link.click();
+link.remove();
+
+terminal.innerHTML += `
+<br><br>
+----------------------------------<br>
+MEDIA RELEASE COMPLETE<br>
+----------------------------------<br><br>
+
+<button onclick="showNote()">OPEN PRIVATE ANNOTATION</button>
+`;
+
+}
+
+/* FINAL NOTE */
+function showNote(){
+
+terminal.innerHTML += `
+<br><br>
+----------------------------------<br>
+PRIVATE ANNOTATION FOUND<br>
+----------------------------------<br><br>
+
+SOURCE: unknown<br>
+TYPE: emotional fragment<br><br>
+
+CONTENT:<br><br>
+
+"this is the song i'll make love to you to."<br><br>
+
+<button onclick="goNext()">PROCEED</button>
+`;
+
+}
+
+/* NEXT */
+function goNext(){
+    window.location.href = "level7.html";
+}
+
+/* START */
+startLevel6();

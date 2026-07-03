@@ -191,6 +191,42 @@ function diagnostics() {
 
     
 typeLine();
+    function showInput() {
+    terminal.innerHTML += "<br><br>";
+
+    terminal.innerHTML += `
+        <input id="keyInput" placeholder="enter hidden key..." style="
+            background:black;
+            border:1px solid #00ff66;
+            color:#00ff66;
+            font-size:18px;
+            padding:10px;
+            font-family:monospace;
+        ">
+
+        <button onclick="checkKey()" style="
+            background:black;
+            border:1px solid #00ff66;
+            color:#00ff66;
+            padding:10px;
+            cursor:pointer;
+            font-family:monospace;
+            margin-left:10px;
+        ">UNLOCK</button>
+
+        <button onclick="diagnostics()" style="
+            background:black;
+            border:1px solid #00ff66;
+            color:#00ff66;
+            padding:10px;
+            cursor:pointer;
+            font-family:monospace;
+            margin-left:10px;
+        ">RUN DIAGNOSTICS</button>
+
+        <p id="result"></p>
+    `;
+}
 </script>
 </body>
 </html>

@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    
 <head>
 <meta charset="UTF-8">
 <title>NODE // LEVEL 6</title>
@@ -17,8 +16,12 @@ html, body{
     overflow:auto;
 }
 
-/* flicker */
-body{
+/* flicker only terminal (NOT whole page) */
+#terminal{
+    padding:30px;
+    white-space:pre-wrap;
+    font-size:18px;
+    line-height:1.6;
     animation:flicker 3s infinite;
 }
 
@@ -28,13 +31,6 @@ body{
     4%{opacity:1;}
     50%{opacity:0.98;}
     100%{opacity:1;}
-}
-
-#terminal{
-    padding:30px;
-    white-space:pre-wrap;
-    font-size:18px;
-    line-height:1.6;
 }
 
 /* buttons */
@@ -87,7 +83,7 @@ function typeLine(text, callback){
     run();
 }
 
-/* PROGRESS BAR (FIXED - SINGLE UPDATING BAR) */
+/* SINGLE PROGRESS BAR (FIXED) */
 function updateProgress(percent){
 
     const barLength = 10;
@@ -100,7 +96,14 @@ function updateProgress(percent){
         "░".repeat(empty) +
         "] " + percent + "%";
 
-    terminal.innerHTML += bar + "<br>";
+    let existing = document.getElementById("progressLine");
+
+    if(existing){
+        existing.innerHTML = bar;
+    } else {
+        terminal.innerHTML += `<div id="progressLine">${bar}</div>`;
+    }
+
     terminal.scrollTop = terminal.scrollHeight;
 }
 
@@ -208,6 +211,8 @@ FILE: whenwe.mp3<br><br>
 
 `;
 
+terminal.scrollTop = terminal.scrollHeight;
+
 }, 2600);
 
 });
@@ -259,7 +264,7 @@ CONTENT:<br><br>
 
 }
 
-/* NEXT */
+/* NEXT LEVEL */
 function goNext(){
     window.location.href = "level7.html";
 }

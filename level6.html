@@ -1,6 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>NODE // LEVEL 6</title>
+
+<style>
+
+html, body{
+    margin:0;
+    height:100%;
+    background:#000;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:auto;
+}
+
+/* flicker / hacker instability */
+body{
+    animation:flicker 3s infinite;
+}
+
+@keyframes flicker{
+    0%{opacity:1;}
+    2%{opacity:0.95;}
+    4%{opacity:1;}
+    50%{opacity:0.98;}
+    100%{opacity:1;}
+}
+
+/* terminal */
+#terminal{
+    padding:30px;
+    white-space:pre-wrap;
+    font-size:18px;
+    line-height:1.6;
+}
+
+/* buttons */
+button{
+    background:black;
+    border:1px solid #00ff66;
+    color:#00ff66;
+    padding:10px 14px;
+    font-family:monospace;
+    cursor:pointer;
+    margin-top:10px;
+    margin-right:10px;
+}
+
+button:hover{
+    background:#00ff66;
+    color:black;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="terminal"></div>
+
+<audio id="song" src="whenwe.mp3"></audio>
+
+<script>
+
 const terminal = document.getElementById("terminal");
 
-/* TYPE ENGINE */
+/* TYPE ENGINE (EVERY LINE EFFECT) */
 function typeLine(text, callback){
     let i = 0;
 
@@ -9,10 +77,11 @@ function typeLine(text, callback){
             terminal.innerHTML += text.charAt(i);
             i++;
             terminal.scrollTop = terminal.scrollHeight;
-            setTimeout(run,12);
+            setTimeout(run, 10);
         } else {
             terminal.innerHTML += "<br>";
-            if(callback) setTimeout(callback,300);
+            terminal.scrollTop = terminal.scrollHeight;
+            if(callback) setTimeout(callback, 250);
         }
     }
 
@@ -45,8 +114,12 @@ terminal.innerHTML += `
 LIVE SYSTEM ACTIVE<br>
 ----------------------------------<br><br>
 
+Identity verification required.<br><br>
+
 <button onclick="scan()">SCAN IDENTITY</button>
 `;
+
+terminal.scrollTop = terminal.scrollHeight;
 
 }
 
@@ -54,7 +127,7 @@ LIVE SYSTEM ACTIVE<br>
 function scan(){
 
 typeLine("> scanning operator signature...", () => {
-typeLine("> profile match found.", () => {
+typeLine("> behavioral fingerprint match found...", () => {
 
 terminal.innerHTML += `
 <br>
@@ -74,14 +147,11 @@ Confidence: 99.97%<br><br>
 function trace(){
 
 typeLine("> accessing memory database...", () => {
-typeLine("> reconstructing memory clusters...", () => {
+typeLine("> reconstructing emotional clusters...", () => {
 
 terminal.innerHTML += `
 <br>
-
-MEMORY CLUSTERS FOUND
-
-<br><br>
+MEMORY CLUSTERS FOUND<br><br>
 
 [01] TRUST ✓<br>
 [02] DISTANCE ✓<br>
@@ -105,27 +175,30 @@ typeLine("> initializing adaptive audio generation...", () => {
 
 terminal.innerHTML += `
 <br><br>
-Synthesizing...<br><br>
+Synthesizing audio node...<br><br>
 
 [██░░░░░░░░] 20%<br>
 `;
 
 setTimeout(() => {
 terminal.innerHTML += `[█████░░░░░] 50%<br>`;
+terminal.scrollTop = terminal.scrollHeight;
 }, 800);
 
 setTimeout(() => {
 terminal.innerHTML += `[████████░░] 80%<br>`;
+terminal.scrollTop = terminal.scrollHeight;
 }, 1600);
 
 setTimeout(() => {
 terminal.innerHTML += `
 [██████████] 100%<br><br>
 
-FILE: whenwe.mp3<br>
+FILE GENERATED: whenwe.mp3<br><br>
 
 <button onclick="releaseSong()">RELEASE AUDIO</button>
 `;
+terminal.scrollTop = terminal.scrollHeight;
 }, 2400);
 
 });
@@ -181,10 +254,15 @@ CONTENT:<br><br>
 
 }
 
-/* NEXT */
+/* NEXT LEVEL */
 function goNext(){
     window.location.href = "level7.html";
 }
 
 /* START */
 startLevel6();
+
+</script>
+
+</body>
+</html>

@@ -13,7 +13,6 @@
         overflow: hidden;
     }
 
-    
     .container {
         text-align: center;
         padding-top: 80px;
@@ -112,6 +111,26 @@ function checkKey() {
 
     if (input === "happybirthday") {
         result.innerHTML = "ACCESS GRANTED ✓ Next node unlocked...";
+    } else {
+        result.innerHTML = "ACCESS DENIED ✗";
+    }
+}
+
+function diagnostics() {
+    document.getElementById("result").innerHTML = "hehe it tickles!";
+}
+<script>
+function checkKey() {
+    const input = document.getElementById("keyInput").value.trim().toLowerCase();
+    const result = document.getElementById("result");
+
+    if (input === "happybirthday") {
+        result.innerHTML = "ACCESS GRANTED ✓ Next node unlocked...";
+
+        setTimeout(() => {
+            window.location.href = "level5.html";
+        }, 1200);
+
     } else {
         result.innerHTML = "ACCESS DENIED ✗";
     }

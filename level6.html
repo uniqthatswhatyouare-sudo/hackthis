@@ -16,7 +16,7 @@ html, body{
     overflow:auto;
 }
 
-/* flicker / hacker instability */
+/* flicker */
 body{
     animation:flicker 3s infinite;
 }
@@ -29,7 +29,6 @@ body{
     100%{opacity:1;}
 }
 
-/* terminal */
 #terminal{
     padding:30px;
     white-space:pre-wrap;
@@ -61,14 +60,13 @@ button:hover{
 <body>
 
 <div id="terminal"></div>
-
 <audio id="song" src="whenwe.mp3"></audio>
 
 <script>
 
 const terminal = document.getElementById("terminal");
 
-/* TYPE ENGINE (EVERY LINE EFFECT) */
+/* TYPE ENGINE */
 function typeLine(text, callback){
     let i = 0;
 
@@ -81,11 +79,28 @@ function typeLine(text, callback){
         } else {
             terminal.innerHTML += "<br>";
             terminal.scrollTop = terminal.scrollHeight;
-            if(callback) setTimeout(callback, 250);
+            if(callback) setTimeout(callback, 200);
         }
     }
 
     run();
+}
+
+/* PROGRESS BAR (FIXED - SINGLE UPDATING BAR) */
+function updateProgress(percent){
+
+    const barLength = 10;
+    const filled = Math.round((percent / 100) * barLength);
+    const empty = barLength - filled;
+
+    const bar =
+        "[" +
+        "█".repeat(filled) +
+        "░".repeat(empty) +
+        "] " + percent + "%";
+
+    terminal.innerHTML += bar + "<br>";
+    terminal.scrollTop = terminal.scrollHeight;
 }
 
 /* BOOT */
@@ -114,12 +129,8 @@ terminal.innerHTML += `
 LIVE SYSTEM ACTIVE<br>
 ----------------------------------<br><br>
 
-Identity verification required.<br><br>
-
 <button onclick="scan()">SCAN IDENTITY</button>
 `;
-
-terminal.scrollTop = terminal.scrollHeight;
 
 }
 
@@ -127,7 +138,7 @@ terminal.scrollTop = terminal.scrollHeight;
 function scan(){
 
 typeLine("> scanning operator signature...", () => {
-typeLine("> behavioral fingerprint match found...", () => {
+typeLine("> fingerprint match found...", () => {
 
 terminal.innerHTML += `
 <br>
@@ -173,25 +184,34 @@ typeLine("> validating relationship graph...", () => {
 typeLine("> emotional resonance confirmed...", () => {
 typeLine("> initializing adaptive audio generation...", () => {
 
+terminal.innerHTML += `<br>Synthesizing...<br><br>`;
+
+setTimeout(() => updateProgress(20), 500);
+setTimeout(() => updateProgress(50), 1200);
+setTimeout(() => updateProgress(80), 1900);
+
+setTimeout(() => {
+
+updateProgress(100);
+
 terminal.innerHTML += `
-<br><br>
-Synthesizing audio node...<br><br>
 
+<br>
+----------------------------------<br>
+AUDIO NODE GENERATED<br>
+----------------------------------<br><br>
 
-FILE GENERATED: whenwe.mp3<br><br>
+FILE: whenwe.mp3<br><br>
 
 <button onclick="releaseSong()">RELEASE AUDIO</button>
+
 `;
-terminal.scrollTop = terminal.scrollHeight;
-}, 2400);
+
+}, 2600);
 
 });
-
 });
-
 });
-
-}
 
 /* STEP 4 */
 function releaseSong(){
@@ -238,7 +258,7 @@ CONTENT:<br><br>
 
 }
 
-/* NEXT LEVEL */
+/* NEXT */
 function goNext(){
     window.location.href = "level7.html";
 }

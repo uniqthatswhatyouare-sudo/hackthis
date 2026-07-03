@@ -3,40 +3,40 @@
 
 <head>
 <meta charset="UTF-8">
-<title>NODE // 05 - AUDIO VAULT</title>
+<title>FORENSIC NODE // LEVEL 5</title>
 
 <style>
 
 html, body{
-    height:100%;
     margin:0;
-    background:#000;
+    height:100%;
+    background:black;
     color:#00ff66;
     font-family:"Courier New", monospace;
-    overflow:hidden;
 }
 
-/* Scrollable terminal */
+/* IMPORTANT FIX: allow scrolling */
+body{
+    overflow:auto;
+}
+
 #terminal{
     height:100vh;
     overflow-y:auto;
     padding:30px;
     white-space:pre-wrap;
-    font-size:20px;
+    font-size:18px;
     line-height:1.6;
 }
 
-/* Buttons */
 button{
     background:black;
     color:#00ff66;
     border:1px solid #00ff66;
-    padding:10px 18px;
+    padding:10px 14px;
     font-family:monospace;
-    font-size:18px;
-    margin-top:15px;
-    margin-right:10px;
     cursor:pointer;
+    margin-top:10px;
 }
 
 button:hover{
@@ -44,20 +44,14 @@ button:hover{
     color:black;
 }
 
-/* Flicker effect */
-@keyframes flicker{
-0%{opacity:1;}
-50%{opacity:0.97;}
-100%{opacity:1;}
-}
-
-body{
-    animation:flicker 3s infinite;
-}
-
-/* glitch effect */
 .glitch{
     animation: flicker 0.1s infinite;
+}
+
+@keyframes flicker{
+    0%{opacity:1;}
+    50%{opacity:0.7;}
+    100%{opacity:1;}
 }
 
 </style>
@@ -74,10 +68,7 @@ body{
 
 const terminal = document.getElementById("terminal");
 
-/* =========================
-   TYPE ENGINE (FIXED)
-========================= */
-
+/* TYPE ENGINE */
 function typeLine(text, callback){
     let i = 0;
 
@@ -86,31 +77,26 @@ function typeLine(text, callback){
             terminal.innerHTML += text[i];
             i++;
             terminal.scrollTop = terminal.scrollHeight;
-            setTimeout(run, 15);
+            setTimeout(run, 12);
         } else {
             terminal.innerHTML += "<br>";
             terminal.scrollTop = terminal.scrollHeight;
-            if(callback) setTimeout(callback, 200);
+            if(callback) setTimeout(callback, 300);
         }
     }
 
     run();
 }
 
-/* =========================
-   BOOT SEQUENCE
-========================= */
-
+/* BOOT SEQUENCE */
 function startBoot(){
 
-typeLine("> Booting secure node 05...", () => {
-typeLine("> Loading audio vault subsystem...", () => {
-typeLine("> Establishing encrypted connection...", () => {
-typeLine("> Scanning authorization layers...", () => {
-typeLine("> WARNING: Restricted media detected.", () => {
-typeLine("> Initializing access protocol...", () => {
-typeLine("> Awaiting operator input...", showSystem);
-});
+typeLine("> Initializing forensic environment...", () => {
+typeLine("> Mounting system kernel...", () => {
+typeLine("> Scanning media directories...", () => {
+typeLine("> Detecting audio anomalies...", () => {
+typeLine("> WARNING: corrupted file signature found...", () => {
+typeLine("> SYSTEM READY", showLogs);
 });
 });
 });
@@ -119,193 +105,132 @@ typeLine("> Awaiting operator input...", showSystem);
 
 }
 
-startBoot();
-
-/* =========================
-   SYSTEM UI
-========================= */
-
-function showSystem(){
+/* LOG SCREEN */
+function showLogs(){
 
 terminal.innerHTML += `
 <br>
 ----------------------------------<br>
-CONNECTION      OFFLINE<br>
-SESSION         INACTIVE<br>
-IDENTITY        UNVERIFIED<br>
-AUDIO VAULT     LOCKED<br>
+FORENSIC LOG STREAM ACTIVE<br>
 ----------------------------------<br><br>
 
-<button onclick="step1()">ESTABLISH CONNECTION</button>
+12:01 system boot complete<br>
+12:02 scanning storage sectors...<br>
+12:03 anomaly detected in /audio/<br>
+12:04 isolating corrupted media file...<br><br>
+
+<button onclick="openCase()">INVESTIGATE FILE</button>
 `;
 
 }
 
-/* =========================
-   STEP 1
-========================= */
+/* CASE FILE */
+function openCase(){
 
-function step1(){
-
-typeLine("> Establishing connection...");
-
-setTimeout(() => {
-
-typeLine("> Connection ONLINE");
+terminal.innerHTML += `
+<br>
+> Accessing forensic database...<br>
+> Loading case files...<br><br>
+`;
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>CONNECTION ONLINE ✔<br><br>
-<button onclick="step2()">INITIALIZE SESSION</button>
-`;
+<br>
+----------------------------------<br>
+FORENSIC CASE FILE: AUDIO_7749<br>
+----------------------------------<br><br>
 
-}, 500);
+FILE LOCATION: /vault/quarantine/<br>
+STATUS: recoverable<br>
+SIGNATURE: emotional anomaly detected<br><br>
+
+<button onclick="startRecovery()">INITIATE RECOVERY</button>
+`;
 
 }, 1200);
 
 }
 
-/* =========================
-   STEP 2
-========================= */
+/* RECOVERY */
+function startRecovery(){
 
-function step2(){
-
-typeLine("> Initializing session...");
-
-setTimeout(() => {
-
-typeLine("> Session ACTIVE");
+terminal.innerHTML += `
+<br>
+> Reconstructing audio data...<br>
+> Rebuilding metadata...<br>
+`;
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>SESSION ACTIVE ✔<br><br>
-<button onclick="step3()">VERIFY CREDENTIALS</button>
+<br>
+RECOVERY COMPLETE<br><br>
+
+FILE: isitacrime.mp3<br><br>
+
+<button onclick="downloadSong()">DOWNLOAD</button>
+<button onclick="analyzeSong()">ANALYZE</button>
 `;
 
-}, 500);
-
-}, 1200);
+}, 2500);
 
 }
 
-/* =========================
-   STEP 3
-========================= */
+/* DOWNLOAD */
+function downloadSong(){
 
-function step3(){
+terminal.classList.add("glitch");
 
-typeLine("> Requesting credentials...");
+const audio = document.getElementById("song");
+audio.play().catch(()=>{});
 
-setTimeout(() => {
+const link = document.createElement("a");
+link.href = "isitacrime.mp3";
+link.download = "isitacrime.mp3";
+document.body.appendChild(link);
+link.click();
+link.remove();
 
-typeLine("> Credentials VERIFIED");
-
-setTimeout(() => {
+terminal.classList.remove("glitch");
 
 terminal.innerHTML += `
-<br>IDENTITY VERIFIED ✔<br><br>
-<button onclick="step4()">MOUNT VAULT</button>
+<br><br>
+TRANSFER COMPLETE<br>
+AUDIO EXTRACTED<br>
 `;
-
-}, 500);
-
-}, 1400);
 
 }
 
-/* =========================
-   STEP 4
-========================= */
-
-function step4(){
-
-typeLine("> Mounting secure audio vault...");
-
-setTimeout(() => {
-
-typeLine("> Vault MOUNTED");
-
-setTimeout(() => {
+/* ANALYZE */
+function analyzeSong(){
 
 terminal.innerHTML += `
-<br>AUDIO VAULT MOUNTED ✔<br><br>
-<button onclick="step5()">RECOVER AUDIO NODE</button>
+<br>
+> Running emotional analysis...<br>
 `;
-
-}, 500);
-
-}, 1400);
-
-}
-
-/* =========================
-   STEP 5
-========================= */
-
-function step5(){
-
-typeLine("> Recovering audio node...");
-typeLine("> Searching archive...");
-typeLine("> Decrypting file...");
-typeLine("> File located");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
 <br><br>
-FILE: isitacrime.mp3<br><br>
-
-<button onclick="downloadFile()">DOWNLOAD FILE</button>
-<button onclick="analyzeFile()">ANALYZE FILE</button>
+RESULT:<br><br>
+"This song sounds like you wrote it to me."<br>
 `;
-
-}, 1500);
-
-}
-
-/* =========================
-   DOWNLOAD (FIXED)
-========================= */
-
-function downloadFile(){
-
-typeLine("> Preparing secure transfer...");
-typeLine("> Calculating checksum...");
-typeLine("> Verifying integrity...");
-typeLine("> Transfer authorized");
-
-setTimeout(() => {
-
-const audio = document.getElementById("song");
-audio.play().catch(()=>{});
-
-const a = document.createElement("a");
-a.href = "isitacrime.mp3";
-a.download = "isitacrime.mp3";
-document.body.appendChild(a);
-a.click();
-document.body.removeChild(a);
 
 showFinal();
 
-}, 1800);
+}, 1200);
 
 }
 
-/* =========================
-   FINAL NODE
-========================= */
-
+/* FINAL NODE */
 function showFinal(){
 
 terminal.innerHTML += `
 <br><br>
 ----------------------------------<br>
-TRANSFER COMPLETE<br>
-AUDIO NODE UNLOCKED<br>
+SYSTEM ARCHIVE CLOSED<br>
 ----------------------------------<br><br>
 
 <button onclick="goNext()">ENTER FINAL NODE</button>
@@ -317,29 +242,10 @@ function goNext(){
     window.location.href = "level6.html";
 }
 
-/* =========================
-   ANALYZE MESSAGE
-========================= */
-
-function analyzeFile(){
-
-typeLine("> Running semantic analysis...");
-typeLine("> Processing emotional signature...");
-
-setTimeout(() => {
-
-terminal.innerHTML += `
-<br><br>
-RESULT:<br><br>
-"This song sounds like you wrote it to me."
-`;
-
-}, 1200);
-
-}
+/* START */
+startBoot();
 
 </script>
 
 </body>
-
 </html>

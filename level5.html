@@ -23,8 +23,6 @@ body{
     line-height:1.6;
 }
 
-/* Buttons */
-
 button{
     background:black;
     color:#00ff66;
@@ -42,8 +40,6 @@ button:hover{
     color:black;
 }
 
-/* Flicker */
-
 @keyframes flicker{
 0%{opacity:1;}
 2%{opacity:.95;}
@@ -52,16 +48,14 @@ button:hover{
 100%{opacity:1;}
 }
 
-/* Glitch mode */
-
 .glitch{
-    animation: glitchFlash 0.12s infinite;
+    animation: glitch 0.12s infinite;
 }
 
-@keyframes glitchFlash{
-    0%{opacity:1;}
-    50%{opacity:0.75;}
-    100%{opacity:1;}
+@keyframes glitch{
+0%{opacity:1;}
+50%{opacity:0.75;}
+100%{opacity:1;}
 }
 
 </style>
@@ -76,46 +70,59 @@ button:hover{
 
 const terminal = document.getElementById("terminal");
 
-const lines = [
-"> Booting secure node 05...",
-"> Loading audio vault subsystem...",
-"> Establishing encrypted connection...",
-"> Scanning authorization layers...",
-"> WARNING: Restricted media detected.",
-"> Initializing access protocol...",
-"> Awaiting operator input..."
-];
+/* =========================
+   CORE TYPE ENGINE
+========================= */
 
-let i = 0;
-let charIndex = 0;
+function typeText(text, callback){
+    let i = 0;
 
-function typeLine(){
-
-    if(i >= lines.length){
-        showSystem();
-        return;
+    function run(){
+        if(i < text.length){
+            terminal.innerHTML += text[i];
+            i++;
+            setTimeout(run, 18);
+        } else {
+            terminal.innerHTML += "<br>";
+            if(callback) callback();
+        }
     }
 
-    let line = lines[i];
-
-    if(charIndex < line.length){
-        terminal.innerHTML += line.charAt(charIndex);
-        charIndex++;
-        setTimeout(typeLine, 25);
-    } else {
-        terminal.innerHTML += "<br>";
-        i++;
-        charIndex = 0;
-        setTimeout(typeLine, 500);
-    }
+    run();
 }
 
-typeLine();
+/* =========================
+   BOOT SEQUENCE
+========================= */
+
+function startBoot(){
+
+typeText("> Booting secure node 05...", () => {
+typeText("> Loading audio vault subsystem...", () => {
+typeText("> Establishing encrypted connection...", () => {
+typeText("> Scanning authorization layers...", () => {
+typeText("> WARNING: Restricted media detected.", () => {
+typeText("> Initializing access protocol...", () => {
+typeText("> Awaiting operator input...", showSystem);
+});
+});
+});
+});
+});
+});
+
+}
+
+startBoot();
+
+/* =========================
+   SYSTEM UI
+========================= */
 
 function showSystem(){
 
 terminal.innerHTML += `
-<br><br>
+<br>
 ----------------------------------<br>
 CONNECTION      OFFLINE<br>
 SESSION         INACTIVE<br>
@@ -128,150 +135,150 @@ AUDIO VAULT     LOCKED<br>
 
 }
 
-/* STEP 1 */
+/* =========================
+   STEP 1
+========================= */
 
 function step1(){
 
-terminal.innerHTML += `<br>> Establishing connection...`;
+typeText("> Establishing connection...");
+
+setTimeout(() => {
+
+typeText("> Handshake sent...");
+typeText("> Response received...");
+typeText("> Secure connection ONLINE");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>> Handshake sent...
-<br>> Response received...
-<br>> Secure connection ONLINE
-<br><br>
-
-----------------------------------<br>
-CONNECTION      ONLINE ✔<br>
-SESSION         INACTIVE<br>
-IDENTITY        UNVERIFIED<br>
-AUDIO VAULT     LOCKED<br>
-----------------------------------<br><br>
-
+<br>
+CONNECTION ONLINE ✔<br><br>
 <button onclick="step2()">INITIALIZE SESSION</button>
 `;
 
-}, 1500);
+}, 600);
+
+}, 1200);
 
 }
 
-/* STEP 2 */
+/* =========================
+   STEP 2
+========================= */
 
 function step2(){
 
-terminal.innerHTML += `<br>> Initializing session...`;
+typeText("> Initializing session...");
+
+setTimeout(() => {
+
+typeText("> Session ACTIVE");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>> Session ACTIVE
-<br><br>
-
-----------------------------------<br>
-CONNECTION      ONLINE ✔<br>
-SESSION         ACTIVE ✔<br>
-IDENTITY        UNVERIFIED<br>
-AUDIO VAULT     LOCKED<br>
-----------------------------------<br><br>
-
+<br>
+SESSION ACTIVE ✔<br><br>
 <button onclick="step3()">VERIFY CREDENTIALS</button>
 `;
 
-}, 1500);
+}, 600);
+
+}, 1200);
 
 }
 
-/* STEP 3 */
+/* =========================
+   STEP 3
+========================= */
 
 function step3(){
 
-terminal.innerHTML += `<br>> Requesting credentials...`;
+typeText("> Requesting credentials...");
+
+setTimeout(() => {
+
+typeText("> Credentials VERIFIED");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>> Credentials VERIFIED
-<br><br>
-
-----------------------------------<br>
-CONNECTION      ONLINE ✔<br>
-SESSION         ACTIVE ✔<br>
-IDENTITY        VERIFIED ✔<br>
-AUDIO VAULT     LOCKED<br>
-----------------------------------<br><br>
-
+<br>
+IDENTITY VERIFIED ✔<br><br>
 <button onclick="step4()">MOUNT VAULT</button>
 `;
 
-}, 1800);
+}, 600);
+
+}, 1400);
 
 }
 
-/* STEP 4 */
+/* =========================
+   STEP 4
+========================= */
 
 function step4(){
 
-terminal.innerHTML += `<br>> Mounting secure audio vault...`;
+typeText("> Mounting secure audio vault...");
+
+setTimeout(() => {
+
+typeText("> Mount successful");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>> Mount successful
-<br><br>
-
-----------------------------------<br>
-CONNECTION      ONLINE ✔<br>
-SESSION         ACTIVE ✔<br>
-IDENTITY        VERIFIED ✔<br>
-AUDIO VAULT     MOUNTED ✔<br>
-----------------------------------<br><br>
-
+<br>
+AUDIO VAULT MOUNTED ✔<br><br>
 <button onclick="step5()">RECOVER AUDIO NODE</button>
 `;
 
-}, 1800);
+}, 600);
+
+}, 1400);
 
 }
 
-/* STEP 5 */
+/* =========================
+   STEP 5 - FILE REVEAL
+========================= */
 
 function step5(){
 
-terminal.innerHTML += `
-<br>> Recovering audio node...
-<br>> WARNING: system instability detected...
-`;
+typeText("> Recovering audio node...");
+typeText("> Searching secure archive...");
+typeText("> Decrypting metadata...");
+typeText("> File located");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>> File recovered:
 <br><br>
-isitacrime.mp3
-<br><br>
+FILE: isitacrime.mp3<br><br>
 
 <button onclick="downloadFile()">DOWNLOAD FILE</button>
 <button onclick="analyzeFile()">ANALYZE FILE</button>
 `;
 
-}, 2000);
+}, 1800);
 
 }
 
-/* DOWNLOAD */
+/* =========================
+   DOWNLOAD SYSTEM
+========================= */
 
 function downloadFile(){
 
 terminal.classList.add("glitch");
 
-terminal.innerHTML += `
-<br><br>> Preparing secure transfer...
-<br>> Calculating checksum...
-<br>> Verifying file integrity...
-<br>> Transfer authorized
-<br>> Initiating download...
-`;
+typeText("> Preparing secure transfer...");
+typeText("> Calculating checksum...");
+typeText("> Verifying file integrity...");
+typeText("> Transfer authorized");
+typeText("> Initiating download...");
 
 setTimeout(() => {
 
@@ -284,15 +291,17 @@ document.body.removeChild(a);
 
 terminal.classList.remove("glitch");
 
-showFinalButton();
+showFinal();
 
 }, 2000);
 
 }
 
-/* FINAL NODE BUTTON */
+/* =========================
+   FINAL NODE BUTTON
+========================= */
 
-function showFinalButton(){
+function showFinal(){
 
 terminal.innerHTML += `
 <br><br>
@@ -306,24 +315,28 @@ AUDIO NODE UNLOCKED<br>
 
 }
 
-/* LEVEL 6 */
-
 function goNext(){
     window.location.href = "level6.html";
 }
 
-/* ANALYZE */
+/* =========================
+   ANALYZE MESSAGE
+========================= */
 
 function analyzeFile(){
 
+typeText("> Running semantic analysis...");
+typeText("> Processing emotional signature...");
+
+setTimeout(() => {
+
 terminal.innerHTML += `
-<br><br>> Running semantic analysis...
-<br>> Processing emotional signature...
 <br><br>
-RESULT:
-<br><br>
+RESULT:<br><br>
 "This song sounds like you wrote it to me."
 `;
+
+}, 1200);
 
 }
 

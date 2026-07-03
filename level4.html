@@ -17,6 +17,25 @@ body {
     padding: 30px;
     white-space: pre-line;
 }
+
+button {
+    background: black;
+    border: 1px solid #00ff66;
+    color: #00ff66;
+    padding: 10px;
+    margin-left: 10px;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+input {
+    background: black;
+    border: 1px solid #00ff66;
+    color: #00ff66;
+    font-size: 18px;
+    padding: 10px;
+    font-family: monospace;
+}
 </style>
 
 </head>
@@ -65,35 +84,9 @@ function showInput() {
     terminal.innerHTML += "<br><br>";
 
     terminal.innerHTML += `
-        <input id="keyInput" placeholder="enter hidden key..." style="
-            background:black;
-            border:1px solid #00ff66;
-            color:#00ff66;
-            font-size:18px;
-            padding:10px;
-            font-family:monospace;
-        ">
-
-        <button onclick="checkKey()" style="
-            background:black;
-            border:1px solid #00ff66;
-            color:#00ff66;
-            padding:10px;
-            margin-left:10px;
-            cursor:pointer;
-            font-family:monospace;
-        ">UNLOCK</button>
-
-        <button onclick="diagnostics()" style="
-            background:black;
-            border:1px solid #00ff66;
-            color:#00ff66;
-            padding:10px;
-            margin-left:10px;
-            cursor:pointer;
-            font-family:monospace;
-        ">RUN DIAGNOSTICS</button>
-
+        <input id="keyInput" placeholder="enter hidden key...">
+        <button onclick="checkKey()">UNLOCK</button>
+        <button onclick="diagnostics()">RUN DIAGNOSTICS</button>
         <p id="result"></p>
     `;
 }
@@ -119,11 +112,12 @@ function diagnostics() {
 
     const lines = [
         "> Running diagnostics...",
-        "> Checking memory...",
-        "> Checking CPU...",
-        "> Scanning system files...",
-        "> Looking for bugs...",
-        "> hehe it tickles!"
+        "> Scanning memory sectors...",
+        "> Analyzing encrypted fragments...",
+        "> MEMORY DUMP FOUND:",
+        "> 01101000 01100001 01110000 01110000 01111001",
+        "> 01100010 01101001 01110010 01110100 01101000",
+        "> 01100100 01100001 01111001"
     ];
 
     result.innerHTML = "";
@@ -139,7 +133,7 @@ function diagnostics() {
         if (charIndex < line.length) {
             result.innerHTML += line.charAt(charIndex);
             charIndex++;
-            setTimeout(typeLine, 25);
+            setTimeout(typeLine, 20);
         } else {
             result.innerHTML += "<br>";
             i++;

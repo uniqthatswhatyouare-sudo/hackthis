@@ -6,14 +6,12 @@
 <title>NODE // 05 - AUDIO VAULT</title>
 
 <style>
-
 body{
     margin:0;
     background:#000;
     color:#00ff66;
     font-family:"Courier New", monospace;
     overflow:hidden;
-    animation:flicker 3s infinite;
 }
 
 #terminal{
@@ -23,7 +21,6 @@ body{
     line-height:1.6;
 }
 
-    
 button{
     background:black;
     color:#00ff66;
@@ -41,24 +38,15 @@ button:hover{
     color:black;
 }
 
-@keyframes flicker{
-0%{opacity:1;}
-2%{opacity:.95;}
-4%{opacity:1;}
-60%{opacity:.97;}
-100%{opacity:1;}
-}
-
 .glitch{
-    animation: glitch 0.12s infinite;
+    animation: flicker 0.12s infinite;
 }
 
-@keyframes glitch{
-0%{opacity:1;}
-50%{opacity:0.75;}
-100%{opacity:1;}
+@keyframes flicker{
+    0%{opacity:1;}
+    50%{opacity:0.7;}
+    100%{opacity:1;}
 }
-
 </style>
 
 </head>
@@ -67,25 +55,28 @@ button:hover{
 
 <div id="terminal"></div>
 
+<!-- AUDIO FILE -->
+<audio id="song" src="isitacrime.mp3"></audio>
+
 <script>
 
 const terminal = document.getElementById("terminal");
 
 /* =========================
-   CORE TYPE ENGINE
+   CLEAN TYPE ENGINE
 ========================= */
 
-function typeText(text, callback){
+function typeLine(text, callback){
     let i = 0;
 
     function run(){
         if(i < text.length){
             terminal.innerHTML += text[i];
             i++;
-            setTimeout(run, 18);
+            setTimeout(run, 15);
         } else {
             terminal.innerHTML += "<br>";
-            if(callback) callback();
+            if(callback) setTimeout(callback, 250);
         }
     }
 
@@ -96,15 +87,15 @@ function typeText(text, callback){
    BOOT SEQUENCE
 ========================= */
 
-function startBoot(){
+function start(){
 
-typeText("> Booting secure node 05...", () => {
-typeText("> Loading audio vault subsystem...", () => {
-typeText("> Establishing encrypted connection...", () => {
-typeText("> Scanning authorization layers...", () => {
-typeText("> WARNING: Restricted media detected.", () => {
-typeText("> Initializing access protocol...", () => {
-typeText("> Awaiting operator input...", showSystem);
+typeLine("> Booting secure node 05...", () => {
+typeLine("> Loading audio vault subsystem...", () => {
+typeLine("> Establishing encrypted connection...", () => {
+typeLine("> Scanning authorization layers...", () => {
+typeLine("> WARNING: Restricted media detected.", () => {
+typeLine("> Initializing access protocol...", () => {
+typeLine("> Awaiting operator input...", showSystem);
 });
 });
 });
@@ -114,7 +105,7 @@ typeText("> Awaiting operator input...", showSystem);
 
 }
 
-startBoot();
+start();
 
 /* =========================
    SYSTEM UI
@@ -142,23 +133,21 @@ AUDIO VAULT     LOCKED<br>
 
 function step1(){
 
-typeText("> Establishing connection...");
+typeLine("> Establishing connection...");
 
 setTimeout(() => {
 
-typeText("> Handshake sent...");
-typeText("> Response received...");
-typeText("> Secure connection ONLINE");
+typeLine("> Handshake complete");
+typeLine("> Connection ONLINE");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>
-CONNECTION ONLINE ✔<br><br>
+<br>CONNECTION ONLINE ✔<br><br>
 <button onclick="step2()">INITIALIZE SESSION</button>
 `;
 
-}, 600);
+}, 500);
 
 }, 1200);
 
@@ -170,21 +159,20 @@ CONNECTION ONLINE ✔<br><br>
 
 function step2(){
 
-typeText("> Initializing session...");
+typeLine("> Initializing session...");
 
 setTimeout(() => {
 
-typeText("> Session ACTIVE");
+typeLine("> Session ACTIVE");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>
-SESSION ACTIVE ✔<br><br>
+<br>SESSION ACTIVE ✔<br><br>
 <button onclick="step3()">VERIFY CREDENTIALS</button>
 `;
 
-}, 600);
+}, 500);
 
 }, 1200);
 
@@ -196,21 +184,20 @@ SESSION ACTIVE ✔<br><br>
 
 function step3(){
 
-typeText("> Requesting credentials...");
+typeLine("> Requesting credentials...");
 
 setTimeout(() => {
 
-typeText("> Credentials VERIFIED");
+typeLine("> Credentials VERIFIED");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>
-IDENTITY VERIFIED ✔<br><br>
+<br>IDENTITY VERIFIED ✔<br><br>
 <button onclick="step4()">MOUNT VAULT</button>
 `;
 
-}, 600);
+}, 500);
 
 }, 1400);
 
@@ -222,36 +209,35 @@ IDENTITY VERIFIED ✔<br><br>
 
 function step4(){
 
-typeText("> Mounting secure audio vault...");
+typeLine("> Mounting secure audio vault...");
 
 setTimeout(() => {
 
-typeText("> Mount successful");
+typeLine("> Vault mounted");
 
 setTimeout(() => {
 
 terminal.innerHTML += `
-<br>
-AUDIO VAULT MOUNTED ✔<br><br>
+<br>AUDIO VAULT MOUNTED ✔<br><br>
 <button onclick="step5()">RECOVER AUDIO NODE</button>
 `;
 
-}, 600);
+}, 500);
 
 }, 1400);
 
 }
 
 /* =========================
-   STEP 5 - FILE REVEAL
+   STEP 5
 ========================= */
 
 function step5(){
 
-typeText("> Recovering audio node...");
-typeText("> Searching secure archive...");
-typeText("> Decrypting metadata...");
-typeText("> File located");
+typeLine("> Recovering audio node...");
+typeLine("> Searching archive...");
+typeLine("> Decrypting file...");
+typeLine("> File located");
 
 setTimeout(() => {
 
@@ -263,25 +249,27 @@ FILE: isitacrime.mp3<br><br>
 <button onclick="analyzeFile()">ANALYZE FILE</button>
 `;
 
-}, 1800);
+}, 1500);
 
 }
 
 /* =========================
-   DOWNLOAD SYSTEM
+   DOWNLOAD AUDIO
 ========================= */
 
 function downloadFile(){
 
 terminal.classList.add("glitch");
 
-typeText("> Preparing secure transfer...");
-typeText("> Calculating checksum...");
-typeText("> Verifying file integrity...");
-typeText("> Transfer authorized");
-typeText("> Initiating download...");
+typeLine("> Preparing secure transfer...");
+typeLine("> Calculating checksum...");
+typeLine("> Verifying integrity...");
+typeLine("> Transfer authorized");
 
 setTimeout(() => {
+
+const audio = document.getElementById("song");
+audio.play().catch(()=>{}); // safe fallback
 
 const a = document.createElement("a");
 a.href = "isitacrime.mp3";
@@ -294,12 +282,12 @@ terminal.classList.remove("glitch");
 
 showFinal();
 
-}, 2000);
+}, 1800);
 
 }
 
 /* =========================
-   FINAL NODE BUTTON
+   FINAL NODE
 ========================= */
 
 function showFinal(){
@@ -326,8 +314,8 @@ function goNext(){
 
 function analyzeFile(){
 
-typeText("> Running semantic analysis...");
-typeText("> Processing emotional signature...");
+typeLine("> Running semantic analysis...");
+typeLine("> Processing emotional signature...");
 
 setTimeout(() => {
 

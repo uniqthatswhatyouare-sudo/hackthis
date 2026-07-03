@@ -112,16 +112,44 @@ function checkKey() {
     } else {
         result.innerHTML = "ACCESS DENIED ✗";
     }
+function diagnostics() {
+    const result = document.getElementById("result");
+
+    const lines = [
+        "> Running diagnostics...",
+        "> Checking memory...",
+        "> Checking CPU...",
+        "> Scanning system files...",
+        "> Looking for bugs...",
+        "> hehe it tickles!"
+    ];
+
+    result.innerHTML = "";
+
+    let i = 0;
+    let charIndex = 0;
+
+    function typeLine() {
+        if (i >= lines.length) return;
+
+        let line = lines[i];
+
+        if (charIndex < line.length) {
+            result.innerHTML += line.charAt(charIndex);
+            charIndex++;
+            setTimeout(typeLine, 25);
+        } else {
+            result.innerHTML += "<br>";
+            i++;
+            charIndex = 0;
+            setTimeout(typeLine, 400);
+        }
+    }
+
+    typeLine();
 }
 
-function diagnostics() {
-    document.getElementById("result").innerHTML =
-        "> Running diagnostics...<br>" +
-        "> Checking memory...<br>" +
-        "> Checking CPU...<br>" +
-        "> Looking for bugs...<br>" +
-        "> hehe it tickles!";
-}
+
 
 typeLine();
 </script>

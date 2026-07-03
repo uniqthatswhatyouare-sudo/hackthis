@@ -2,130 +2,174 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>NODE ACCESS // 03</title>
+<title>NODE // ACCESS</title>
 
 <style>
-    body {
-        margin: 0;
-        background-color: black;
-        color: #00ff66;
-        font-family: monospace;
-        overflow: hidden;
-    }
+body {
+    margin: 0;
+    background: black;
+    color: #00ff66;
+    font-family: "Courier New", monospace;
+    font-size: 20px;
+}
 
-    .container {
-        text-align: center;
-        padding-top: 80px;
-    }
+/* terminal container */
+#terminal {
+    padding: 30px;
+    white-space: pre-line;
+}
 
-    .glow {
-        text-shadow: 0 0 5px #00ff66, 0 0 10px #00ff66;
-    }
+/* blinking cursor */
+.cursor {
+    display: inline-block;
+    width: 10px;
+    background: #00ff66;
+    margin-left: 5px;
+    animation: blink 0.8s infinite;
+}
 
-    input {
-        background: black;
-        border: 1px solid #00ff66;
-        color: #00ff66;
-        padding: 10px;
-        font-family: monospace;
-        margin-top: 20px;
-        width: 250px;
-    }
+@keyframes blink {
+    0% { opacity: 1; }
+    50% { opacity: 0; }
+    100% { opacity: 1; }
+}
 
-    button {
-        margin-top: 20px;
-        padding: 10px 20px;
-        background: black;
-        border: 1px solid #00ff66;
-        color: #00ff66;
-        cursor: pointer;
-        font-family: monospace;
-    }
+/* glitch flicker effect */
+@keyframes flicker {
+    0% { opacity: 1; }
+    2% { opacity: 0.8; }
+    4% { opacity: 1; }
+    50% { opacity: 0.95; }
+    100% { opacity: 1; }
+}
 
-    button:hover {
-        background: #00ff66;
-        color: black;
-    }
-
-    #result {
-        margin-top: 20px;
-    }
-
-    /* fake falling code animation */
-    .matrix {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        z-index: -1;
-        opacity: 0.15;
-        font-size: 14px;
-        overflow: hidden;
-        white-space: nowrap;
-    }
-
-    .hidden-key {
-        color: black; /* invisible on black background */
-    }
+body {
+    animation: flicker 3s infinite;
+}
 </style>
+
 </head>
 
 <body>
 
-<div class="matrix">
-    0101010101010101010101010101010101010101010<br>
-    SYSTEM_NODE_ACTIVE<br>
-    ENCRYPTING_LAYER_3<br>
-    ACCESS_DENIED_ACCESS_DENIED_ACCESS_DENIED<br>
-    0101010101010101010101010101010101010101010<br>
-</div>
+<div id="terminal"></div>
 
-<div class="container">
-    <h1 class="glow">SYSTEM NODE // 03</h1>
+<body>
 
-    <p class="glow">
-        Nothing here is visible. But everything is present.
-    </p>
-
-    <p class="glow">
-        Enter hidden key to continue:
-    </p>
-
-    <input type="text" id="keyInput" placeholder="enter key...">
-    <br>
-    <button onclick="checkKey()">UNLOCK</button>
-
-    <button onclick="diagnostics()">RUN DIAGNOSTICS</button>
-
-    <p id="result"></p>
-
-    <!-- hidden key (invisible text) -->
-    <div class="hidden-key">happybirthday</div>
-</div>
+<div id="terminal"></div>
 
 <script>
-function checkKey() {
-    const input = document.getElementById("keyInput").value.trim().toLowerCase();
-    const result = document.getElementById("result");
+const terminal = document.getElementById("terminal");
 
-    if (input === "happybirthday") {
-        result.innerHTML = "ACCESS GRANTED ✓ Next node unlocked...";
+const lines = [
+"> Booting node 04...",
+"> Establishing secure connection...",
+"> Verifying system integrity...",
+"> WARNING: Display output incomplete.",
+"> Nothing here is visible.",
+"> But everything is present.",
+"> Awaiting hidden key..."
+];
+
+let i = 0;
+let charIndex = 0;
+
+function typeLine() {
+    if (i >= lines.length) return;
+
+    let line = lines[i];
+
+    if (charIndex < line.length) {
+        terminal.innerHTML += line.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLine, 40);
     } else {
-        result.innerHTML = "ACCESS DENIED ✗";
+        terminal.innerHTML += "<br>";
+        i++;
+        charIndex = 0;
+        setTimeout(typeLine, 500);
     }
 }
 
-function diagnostics() {
-    document.getElementById("result").innerHTML = "hehe it tickles!";
-}
+typeLine();
+</script>
 <script>
+const terminal = document.getElementById("terminal");
+
+const lines = [
+"> Booting node 04...",
+"> Establishing secure connection...",
+"> Verifying system integrity...",
+"> WARNING: Display output incomplete.",
+"> Nothing here is visible.",
+"> But everything is present.",
+"> Awaiting hidden key..."
+];
+
+let i = 0;
+let charIndex = 0;
+
+function typeLine() {
+    if (i >= lines.length) {
+        showInput();
+        return;
+    }
+
+    let line = lines[i];
+
+    if (charIndex < line.length) {
+        terminal.innerHTML += line.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLine, 35);
+    } else {
+        terminal.innerHTML += "<br>";
+        i++;
+        charIndex = 0;
+        setTimeout(typeLine, 500);
+    }
+}
+
+function showInput() {
+    terminal.innerHTML += "<br><br>";
+
+    terminal.innerHTML += `
+    <input id="keyInput" placeholder="enter hidden key..." style="
+        background:black;
+        border:1px solid #00ff66;
+        color:#00ff66;
+        font-size:18px;
+        padding:10px;
+        font-family:monospace;
+    ">
+    <button onclick="checkKey()" style="
+        background:black;
+        border:1px solid #00ff66;
+        color:#00ff66;
+        padding:10px;
+        cursor:pointer;
+        font-family:monospace;
+    ">UNLOCK</button>
+
+    <button onclick="diagnostics()" style="
+        background:black;
+        border:1px solid #00ff66;
+        color:#00ff66;
+        padding:10px;
+        cursor:pointer;
+        font-family:monospace;
+        margin-left:10px;
+    ">RUN DIAGNOSTICS</button>
+
+    <p id="result"></p>
+    `;
+}
+
 function checkKey() {
     const input = document.getElementById("keyInput").value.trim().toLowerCase();
     const result = document.getElementById("result");
 
     if (input === "happybirthday") {
-        result.innerHTML = "ACCESS GRANTED ✓ Next node unlocked...";
+        result.innerHTML = "ACCESS GRANTED ✓";
 
         setTimeout(() => {
             window.location.href = "level5.html";
@@ -137,9 +181,16 @@ function checkKey() {
 }
 
 function diagnostics() {
-    document.getElementById("result").innerHTML = "hehe it tickles!";
+    document.getElementById("result").innerHTML =
+        "> Running diagnostics...<br>" +
+        "> Checking memory...<br>" +
+        "> Checking CPU...<br>" +
+        "> Looking for bugs...<br>" +
+        "> hehe it tickles!";
 }
-</script>
 
+typeLine();
+</script>
 </body>
 </html>
+

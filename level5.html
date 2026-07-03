@@ -15,7 +15,7 @@ html, body{
     font-family:"Courier New", monospace;
 }
 
-/* IMPORTANT FIX: allow scrolling */
+/* allow scrolling */
 body{
     overflow:auto;
 }
@@ -224,7 +224,7 @@ showFinal();
 
 }
 
-/* FINAL NODE */
+/* FINAL SCREEN */
 function showFinal(){
 
 terminal.innerHTML += `
@@ -233,11 +233,12 @@ terminal.innerHTML += `
 SYSTEM ARCHIVE CLOSED<br>
 ----------------------------------<br><br>
 
-<button onclick="goNext()">ENTER FINAL NODE</button>
+<button onclick="goNext()">PROCEED</button>
 `;
 
 }
 
+/* NEXT LEVEL */
 function goNext(){
     window.location.href = "level6.html";
 }

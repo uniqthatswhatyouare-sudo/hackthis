@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>NODE // 05 - AUDIO VAULT</title>
+
+<style>
+
+body{
+    margin:0;
+    background:#000;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:hidden;
+    animation:flicker 3s infinite;
+}
+
+#terminal{
+    padding:30px;
+    white-space:pre-wrap;
+    font-size:20px;
+    line-height:1.6;
+}
+
+/* Buttons */
+
+button{
+    background:black;
+    color:#00ff66;
+    border:1px solid #00ff66;
+    padding:10px 18px;
+    font-family:monospace;
+    font-size:18px;
+    margin-top:15px;
+    margin-right:10px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#00ff66;
+    color:black;
+}
+
+/* Flicker */
+
+@keyframes flicker{
+0%{opacity:1;}
+2%{opacity:.95;}
+4%{opacity:1;}
+60%{opacity:.97;}
+100%{opacity:1;}
+}
+
+/* Glitch mode */
+
+.glitch{
+    animation: glitchFlash 0.12s infinite;
+}
+
+@keyframes glitchFlash{
+    0%{opacity:1;}
+    50%{opacity:0.75;}
+    100%{opacity:1;}
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="terminal"></div>
+
+<script>
+
+const terminal = document.getElementById("terminal");
+
+const lines = [
+"> Booting secure node 05...",
+"> Loading audio vault subsystem...",
+"> Establishing encrypted connection...",
+"> Scanning authorization layers...",
+"> WARNING: Restricted media detected.",
+"> Initializing access protocol...",
+"> Awaiting operator input..."
+];
+
+let i = 0;
+let charIndex = 0;
+
+function typeLine(){
+
+    if(i >= lines.length){
+        showSystem();
+        return;
+    }
+
+    let line = lines[i];
+
+    if(charIndex < line.length){
+        terminal.innerHTML += line.charAt(charIndex);
+        charIndex++;
+        setTimeout(typeLine, 25);
+    } else {
+        terminal.innerHTML += "<br>";
+        i++;
+        charIndex = 0;
+        setTimeout(typeLine, 500);
+    }
+}
+
+typeLine();
+
+function showSystem(){
+
+terminal.innerHTML += `
+<br><br>
+----------------------------------<br>
+CONNECTION      OFFLINE<br>
+SESSION         INACTIVE<br>
+IDENTITY        UNVERIFIED<br>
+AUDIO VAULT     LOCKED<br>
+----------------------------------<br><br>
+
+<button onclick="step1()">ESTABLISH CONNECTION</button>
+`;
+
+}
+
+/* STEP 1 */
+
+function step1(){
+
+terminal.innerHTML += `<br>> Establishing connection...`;
+
+setTimeout(() => {
+
+terminal.innerHTML += `
+<br>> Handshake sent...
+<br>> Response received...
+<br>> Secure connection ONLINE
+<br><br>
+
+----------------------------------<br>
+CONNECTION      ONLINE ✔<br>
+SESSION         INACTIVE<br>
+IDENTITY        UNVERIFIED<br>
+AUDIO VAULT     LOCKED<br>
+----------------------------------<br><br>
+
+<button onclick="step2()">INITIALIZE SESSION</button>
+`;
+
+}, 1500);
+
+}
+
+/* STEP 2 */
+
+function step2(){
+
+terminal.innerHTML += `<br>> Initializing session...`;
+
+setTimeout(() => {
+
+terminal.innerHTML += `
+<br>> Session ACTIVE
+<br><br>
+
+----------------------------------<br>
+CONNECTION      ONLINE ✔<br>
+SESSION         ACTIVE ✔<br>
+IDENTITY        UNVERIFIED<br>
+AUDIO VAULT     LOCKED<br>
+----------------------------------<br><br>
+
+<button onclick="step3()">VERIFY CREDENTIALS</button>
+`;
+
+}, 1500);
+
+}
+
+/* STEP 3 */
+
+function step3(){
+
+terminal.innerHTML += `<br>> Requesting credentials...`;
+
+setTimeout(() => {
+
+terminal.innerHTML += `
+<br>> Credentials VERIFIED
+<br><br>
+
+----------------------------------<br>
+CONNECTION      ONLINE ✔<br>
+SESSION         ACTIVE ✔<br>
+IDENTITY        VERIFIED ✔<br>
+AUDIO VAULT     LOCKED<br>
+----------------------------------<br><br>
+
+<button onclick="step4()">MOUNT VAULT</button>
+`;
+
+}, 1800);
+
+}
+
+/* STEP 4 */
+
+function step4(){
+
+terminal.innerHTML += `<br>> Mounting secure audio vault...`;
+
+setTimeout(() => {
+
+terminal.innerHTML += `
+<br>> Mount successful
+<br><br>
+
+----------------------------------<br>
+CONNECTION      ONLINE ✔<br>
+SESSION         ACTIVE ✔<br>
+IDENTITY        VERIFIED ✔<br>
+AUDIO VAULT     MOUNTED ✔<br>
+----------------------------------<br><br>
+
+<button onclick="step5()">RECOVER AUDIO NODE</button>
+`;
+
+}, 1800);
+
+}
+
+/* STEP 5 */
+
+function step5(){
+
+terminal.innerHTML += `
+<br>> Recovering audio node...
+<br>> WARNING: system instability detected...
+`;
+
+setTimeout(() => {
+
+terminal.innerHTML += `
+<br>> File recovered:
+<br><br>
+isitacrime.mp3
+<br><br>
+
+<button onclick="downloadFile()">DOWNLOAD FILE</button>
+<button onclick="analyzeFile()">ANALYZE FILE</button>
+`;
+
+}, 2000);
+
+}
+
+/* DOWNLOAD */
+
+function downloadFile(){
+
+terminal.classList.add("glitch");
+
+terminal.innerHTML += `
+<br><br>> Preparing secure transfer...
+<br>> Calculating checksum...
+<br>> Verifying file integrity...
+<br>> Transfer authorized
+<br>> Initiating download...
+`;
+
+setTimeout(() => {
+
+const a = document.createElement("a");
+a.href = "isitacrime.mp3";
+a.download = "isitacrime.mp3";
+document.body.appendChild(a);
+a.click();
+document.body.removeChild(a);
+
+terminal.classList.remove("glitch");
+
+showFinalButton();
+
+}, 2000);
+
+}
+
+/* FINAL NODE BUTTON */
+
+function showFinalButton(){
+
+terminal.innerHTML += `
+<br><br>
+----------------------------------<br>
+TRANSFER COMPLETE<br>
+AUDIO NODE UNLOCKED<br>
+----------------------------------<br><br>
+
+<button onclick="goNext()">ENTER FINAL NODE</button>
+`;
+
+}
+
+/* LEVEL 6 */
+
+function goNext(){
+    window.location.href = "level6.html";
+}
+
+/* ANALYZE */
+
+function analyzeFile(){
+
+terminal.innerHTML += `
+<br><br>> Running semantic analysis...
+<br>> Processing emotional signature...
+<br><br>
+RESULT:
+<br><br>
+"This song sounds like you wrote it to me."
+`;
+
+}
+
+</script>
+
+</body>
+</html>

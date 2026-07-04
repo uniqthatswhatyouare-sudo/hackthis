@@ -23,7 +23,7 @@ html, body{
     line-height:1.6;
 }
 
-/* hacker line animation */
+/* hacker animation */
 .line{
     display:block;
     animation:glitch 0.12s ease-in-out;
@@ -63,7 +63,7 @@ button:hover{
 
 const terminal = document.getElementById("terminal");
 
-/* TYPEWRITER */
+/* TYPE ENGINE */
 function typeLine(text, callback){
 
     let i = 0;
@@ -72,7 +72,6 @@ function typeLine(text, callback){
     terminal.appendChild(line);
 
     function run(){
-
         if(i < text.length){
             line.innerHTML += text.charAt(i);
             i++;
@@ -80,16 +79,11 @@ function typeLine(text, callback){
             setTimeout(run, 10);
         } else {
             line.innerHTML += "<br>";
-            if(callback) setTimeout(callback, 200);
+            if(callback) setTimeout(callback, 150);
         }
     }
 
     run();
-}
-
-/* PRINT */
-function print(html){
-    terminal.innerHTML += html;
 }
 
 /* START */
@@ -106,7 +100,7 @@ typeLine("> System stable.", showMenu);
 /* MENU */
 function showMenu(){
 
-print(`
+terminal.innerHTML += `
 <br>
 ----------------------------------------
 FINAL ARCHIVE
@@ -116,7 +110,7 @@ One encrypted record remains.
 
 <br>
 <button onclick="decrypt()">DECRYPT FINAL RECORD</button>
-`);
+`;
 
 }
 
@@ -128,56 +122,62 @@ terminal.innerHTML += "<br>";
 typeLine("> Decrypting...", () => {
 typeLine("> Access granted.", () => {
 
-print(`
-<br>
-FINAL SYSTEM REPORT<br><br>
+const lines = [
+"FINAL SYSTEM REPORT",
+"",
+"HAPPY BIRTHDAY",
+"VERSION 22.x",
+"",
+"PATCH NOTES:",
+"+ Increased wisdom",
+"+ More experience",
+"+ New memories unlocked",
+"+ Still good at being an antidepressant",
+"+ Still young",
+"+ A perfect husband-to-be",
+"",
+"KNOWN ISSUE:",
+"Distance between developers",
+"",
+"STATUS: Permanent fix in progress",
+"",
+"MAY THIS YEAR BRING YOU:",
+"> luck",
+"> happiness",
+"> more reasons to be curious",
+"> more ideas to build",
+"> more dreams to chase",
+"> more limits to push",
+"",
+"Thank you, Hacker Sir Dracarys.",
+"Happy Birthday.",
+"",
+"> SYSTEM SHUTDOWN INITIATED",
+"3...",
+"2...",
+"1...",
+"Connection terminated."
+];
 
-HAPPY BIRTHDAY<br>
-VERSION 22.x<br><br>
+let i = 0;
 
-PATCH NOTES:<br>
-+ Increased wisdom<br>
-+ More experience<br>
-+ New memories unlocked<br>
-+ Still good at being an antidepressant<br>
-+ Still young<br>
-+ A perfect husband-to-be<br><br>
+function nextLine(){
+    if(i < lines.length){
+        typeLine(lines[i], () => {
+            i++;
+            nextLine();
+        });
+    }
+}
 
-KNOWN ISSUE:<br>
-Distance between developers<br>
-STATUS: Permanent fix in progress<br><br>
-
-MAY THIS YEAR BRING YOU:<br>
-> luck<br>
-> happiness<br>
-> dreams<br><br>
-
-Thank you, Hacker Sir Dracarys.<br>
-Happy Birthday.<br><br>
-
-<button onclick="end()">SHUTDOWN</button>
-`);
+nextLine();
 
 });
 });
 
 }
 
-/* END */
-function end(){
-
-typeLine("> SYSTEM SHUTDOWN...", () => {
-typeLine("3...", () => {
-typeLine("2...", () => {
-typeLine("1...", () => {
-typeLine("Connection terminated.");
-});
-});
-});
-});
-
-}
-
+/* START */
 window.onload = start;
 
 </script>

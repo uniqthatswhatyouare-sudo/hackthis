@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>NODE // LEVEL 7</title>
+
+<style>
+
+html,body{
+    margin:0;
+    background:#000;
+    color:#00ff66;
+    font-family:"Courier New", monospace;
+    overflow:auto;
+}
+
+/* Terminal */
+#terminal{
+    padding:30px;
+    white-space:pre-wrap;
+    font-size:18px;
+    line-height:1.6;
+    animation:flicker 3s infinite;
+}
+
+@keyframes flicker{
+    0%{opacity:1;}
+    2%{opacity:0.95;}
+    50%{opacity:0.98;}
+    100%{opacity:1;}
+}
+
+/* Input */
+input{
+    background:black;
+    color:#00ff66;
+    border:1px solid #00ff66;
+    padding:10px;
+    font-family:monospace;
+}
+
+/* Button */
+button{
+    background:black;
+    color:#00ff66;
+    border:1px solid #00ff66;
+    padding:10px 14px;
+    cursor:pointer;
+    margin-top:10px;
+}
+
+button:hover{
+    background:#00ff66;
+    color:black;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div id="terminal"></div>
+<audio id="song" src="wildthoughts.mp3"></audio>
+
+<script>
+
+const terminal = document.getElementById("terminal");
+
+/* ---------------- TYPEWRITER ---------------- */
+
+function typeLine(text, callback){
+    let i = 0;
+
+    function run(){
+        if(i < text.length){
+            terminal.innerHTML += text.charAt(i);
+            i++;
+            terminal.scrollTop = terminal.scrollHeight;
+            setTimeout(run, 10);
+        } else {
+            terminal.innerHTML += "<br>";
+            if(callback) setTimeout(callback, 200);
+        }
+    }
+
+    run();
+}
+
+function print(html){
+    terminal.innerHTML += html;
+    terminal.scrollTop = terminal.scrollHeight;
+}
+
+/* ---------------- START ---------------- */
+
+let stage = 0;
+
+window.onload = startLevel7;
+
+function startLevel7(){
+
+typeLine("> Booting Decryption Module...", () => {
+typeLine("> Loading cryptographic libraries...", () => {
+typeLine("> Mounting secure archive...", () => {
+typeLine("> Searching deleted sectors...", () => {
+typeLine("> Hidden archive detected.", () => {
+typeLine("> Operator interaction required.", showConsole);
+});
+});
+});
+});
+});
+
+}
+
+/* ---------------- CONSOLE ---------------- */
+
+function showConsole(){
+
+print(`
+
+<br>
+--------------------------------
+DECRYPTION CONSOLE
+--------------------------------
+
+Available commands:
+
+scan
+recover
+decrypt
+
+<br>
+
+<input id="commandInput">
+<button onclick="runCommand()">EXECUTE</button>
+
+`);
+
+}
+
+/* ---------------- COMMANDS ---------------- */
+
+function runCommand(){
+
+const input = document.getElementById("commandInput");
+const cmd = input.value.trim().toLowerCase();
+
+print("<br>> " + cmd + "<br>");
+input.value = "";
+
+if(stage === 0){
+
+    if(cmd !== "scan"){
+        typeLine("ERROR: First command must be 'scan'");
+        return;
+    }
+
+    stage = 1;
+
+    typeLine("> Scanning archive...", () => {
+    typeLine("> Reading metadata...", () => {
+    typeLine("> Archive located.", () => {
+
+        print(`
+<br>
+ARCHIVE ID: ARCHIVE_07
+STATUS: ENCRYPTED
+INTEGRITY: 97%
+
+Next command: recover
+        `);
+
+    });
+    });
+    });
+
+}
+
+else if(stage === 1){
+
+    if(cmd !== "recover"){
+        typeLine("ERROR: Expected command: recover");
+        return;
+    }
+
+    stage = 2;
+    startRecovery();
+
+}
+
+else if(stage === 2){
+
+    if(cmd !== "decrypt"){
+        typeLine("ERROR: Expected command: decrypt");
+        return;
+    }
+
+    stage = 3;
+    startDecrypt();
+
+}
+
+}
+
+/* ---------------- RECOVERY ---------------- */
+
+function updateProgress(p){
+
+    let bar = document.getElementById("bar");
+
+    const total = 20;
+    const filled = Math.round((p/100)*total);
+
+    const text =
+        "[" + "█".repeat(filled) + "░".repeat(total-filled) + "] " + p + "%";
+
+    if(bar){
+        bar.innerHTML = text;
+    } else {
+        print(`<div id="bar">${text}</div>`);
+    }
+
+}
+
+function startRecovery(){
+
+typeLine("> Recovering sectors...", () => {
+typeLine("> Rebuilding archive...", () => {
+
+updateProgress(0);
+
+setTimeout(()=>updateProgress(20),500);
+setTimeout(()=>updateProgress(40),1000);
+setTimeout(()=>updateProgress(60),1500);
+setTimeout(()=>updateProgress(80),2000);
+
+setTimeout(()=>{
+
+updateProgress(100);
+
+typeLine("> Recovery complete.", () => {
+typeLine("> Encryption key found.", () => {
+
+print(`
+<br>
+Next command: decrypt
+`);
+
+});
+
+});
+
+},2600);
+
+});
+
+});
+
+}
+
+/* ---------------- DECRYPT ---------------- */
+
+function startDecrypt(){
+
+typeLine("> Initializing decryption...", () => {
+typeLine("> Attempt failed.", () => {
+
+print(`
+
+<br>
+HEX KEY DETECTED:
+
+77 69 6C 64 74 68 6F 75 67 68 74 73
+
+<br><br>
+
+<input id="decryptInput">
+<button onclick="checkKey()">DECRYPT</button>
+
+`);
+
+});
+
+});
+
+}
+
+/* ---------------- CHECK KEY ---------------- */
+
+function checkKey(){
+
+const val = document.getElementById("decryptInput").value.trim().toLowerCase();
+
+print("<br>> " + val + "<br>");
+
+if(val !== "wildthoughts"){
+    typeLine("ACCESS DENIED");
+    return;
+}
+
+typeLine("> Key accepted.", () => {
+typeLine("> Decrypting archive...", () => {
+
+updateProgress(0);
+
+setTimeout(()=>updateProgress(30),500);
+setTimeout(()=>updateProgress(60),1000);
+setTimeout(()=>updateProgress(100),1600);
+
+setTimeout(()=>{
+
+print(`
+
+<br>
+--------------------------------
+ARCHIVE UNLOCKED
+--------------------------------
+
+FILE: wildthoughts.mp3
+
+<button onclick="releaseSong()">DOWNLOAD</button>
+
+`);
+
+},2000);
+
+});
+
+});
+
+}
+
+/* ---------------- DOWNLOAD ---------------- */
+
+function releaseSong(){
+
+const audio = document.getElementById("song");
+audio.play().catch(()=>{});
+
+const a = document.createElement("a");
+a.href = "wildthoughts.mp3";
+a.download = "wildthoughts.mp3";
+document.body.appendChild(a);
+a.click();
+a.remove();
+
+print(`
+
+<br><br>
+TRANSFER COMPLETE
+
+<button onclick="showNote()">OPEN NOTE</button>
+
+`);
+
+}
+
+/* ---------------- FINAL NOTE ---------------- */
+
+function showNote(){
+
+print(`
+
+<br><br>
+--------------------------------
+PRIVATE NOTE
+--------------------------------
+
+"this is the song i'll make love to you to"
+
+<br>
+
+<button onclick="goNext()">PROCEED</button>
+
+`);
+
+}
+
+function goNext(){
+    window.location.href = "level8.html";
+}
+
+</script>
+
+</body>
+</html>

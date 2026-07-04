@@ -6,14 +6,12 @@
 <title>FINAL NODE</title>
 
 <style>
-
 html, body{
     margin:0;
     height:100%;
     background:#000;
     color:#00ff66;
     font-family:"Courier New", monospace;
-    overflow:auto;
 }
 
 #terminal{
@@ -21,15 +19,6 @@ html, body{
     white-space:pre-wrap;
     font-size:18px;
     line-height:1.6;
-    animation:flicker 3s infinite;
-}
-
-@keyframes flicker{
-    0%{opacity:1;}
-    2%{opacity:.95;}
-    4%{opacity:1;}
-    50%{opacity:.98;}
-    100%{opacity:1;}
 }
 
 button{
@@ -37,7 +26,6 @@ button{
     color:#00ff66;
     border:1px solid #00ff66;
     padding:10px 16px;
-    font-family:monospace;
     cursor:pointer;
     margin-top:15px;
 }
@@ -46,9 +34,7 @@ button:hover{
     background:#00ff66;
     color:black;
 }
-
 </style>
-
 </head>
 
 <body>
@@ -59,19 +45,18 @@ button:hover{
 
 const terminal = document.getElementById("terminal");
 
-/* TYPE ENGINE */
+/* TYPEWRITER */
 function typeLine(text, callback){
-
     let i = 0;
 
     function run(){
         if(i < text.length){
-            terminal.innerHTML += text.charAt(i);
+            terminal.innerHTML += text[i];
             i++;
             setTimeout(run, 10);
         } else {
             terminal.innerHTML += "<br>";
-            if(callback) setTimeout(callback, 200);
+            if(callback) setTimeout(callback, 150);
         }
     }
 
@@ -84,24 +69,18 @@ function print(html){
 }
 
 /* START */
-function startLevel8(){
+function start(){
 
-    typeLine("> Initializing final archive...", () => {
-    typeLine("> Closing active investigation...", () => {
-    typeLine("> Verifying recovered assets...", () => {
-    typeLine("> Checking archive integrity...", () => {
-    typeLine("> No corrupted sectors detected.", () => {
-    typeLine("> Preparing final report...", showConsole);
-    });
-    });
-    });
-    });
-    });
+typeLine("> Initializing final archive...", () => {
+typeLine("> Checking integrity...", () => {
+typeLine("> System stable.", showMenu);
+});
+});
 
 }
 
-/* MAIN SCREEN */
-function showConsole(){
+/* MENU */
+function showMenu(){
 
 print(`
 <br>
@@ -112,101 +91,70 @@ FINAL ARCHIVE
 One encrypted record remains.
 
 <br>
-
-<button onclick="decryptFinal()">DECRYPT FINAL RECORD</button>
+<button onclick="decrypt()">DECRYPT FINAL RECORD</button>
 `);
 
 }
 
 /* DECRYPT */
-function decryptFinal(){
+function decrypt(){
 
 terminal.innerHTML += "<br>";
 
-typeLine("> Decrypting final record...", () => {
+typeLine("> Decrypting...", () => {
 typeLine("> Access granted.", () => {
-typeLine("> Rendering final report...", () => {
 
-typeLine("FINAL SYSTEM REPORT", () => {
+print(`
+<br>
+FINAL SYSTEM REPORT<br><br>
 
-typeLine("HAPPY BIRTHDAY", () => {
+HAPPY BIRTHDAY<br>
+VERSION 22.x<br><br>
 
-typeLine("VERSION 22.x", () => {
+PATCH NOTES:<br>
++ Increased wisdom<br>
++ More experience<br>
++ New memories unlocked<br>
++ Still good at being an antidepressant<br>
++ Still young<br>
++ A perfect husband-to-be<br><br>
 
-typeLine("PATCH NOTES", () => {
+KNOWN ISSUE:<br>
+Distance between developers<br>
+STATUS: Permanent fix in progress<br><br>
 
-typeLine("+ Increased wisdom.", () => {
-typeLine("+ More experience gained.", () => {
-typeLine("+ New memories unlocked.", () => {
-typeLine("+ Still good at being an antidepressant.", () => {
-typeLine("+ Still young.", () => {
-typeLine("+ A perfect husband-to-be.", () => {
+MAY THIS YEAR BRING YOU:<br>
+> luck<br>
+> happiness<br>
+> dreams<br><br>
 
-showKnownIssue();
+Thank you, Hacker Sir Dracarys.<br>
+Happy Birthday.<br><br>
 
-});});});});});});});});});});});
+<button onclick="end()">SHUTDOWN</button>
+`);
+
+});
+});
 
 }
 
-/* KNOWN ISSUE */
-function showKnownIssue(){
-
-typeLine("KNOWN ISSUE", () => {
-typeLine("Distance between developers.", () => {
-typeLine("STATUS: Working on a permanent fix.", showMessage);
-});
-});
-}
-
-/* MESSAGE */
-function showMessage(){
-
-typeLine("MAY THIS YEAR BRING YOU", () => {
-
-typeLine("> luck", () => {
-typeLine("> happiness", () => {
-typeLine("> more reasons to be curious", () => {
-typeLine("> more ideas to build", () => {
-typeLine("> more dreams to chase", () => {
-typeLine("> more limits to push", showFinalReport);
-});
-});
-});
-});
-});
-});
-}
-
-/* FINAL */
-function showFinalReport(){
-
-typeLine("FINAL SYSTEM REPORT", () => {
-
-typeLine("Investigation complete.", () => {
-typeLine("Encryption layers bypassed.", () => {
-typeLine("Integrity verified.", () => {
-
-typeLine("No critical errors detected.", () => {
-
-typeLine("Thank you, Hacker Sir Dracarys.", () => {
-
-typeLine("Happy Birthday.", () => {
+/* END */
+function end(){
 
 typeLine("> SYSTEM SHUTDOWN...", () => {
-
 typeLine("3...", () => {
 typeLine("2...", () => {
 typeLine("1...", () => {
-
-typeLine("Connection terminated.", () => {
-typeLine("See you on the next adventure.");
-
-});});});});});});});});});});});
+typeLine("Connection terminated.");
+});
+});
+});
+});
 
 }
 
-/* START */
-window.onload = startLevel8;
+window.onload = start;
 
 </script>
 
